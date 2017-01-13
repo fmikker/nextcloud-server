@@ -1,0 +1,7 @@
+---
+- name: installing | installing the required software
+  become: yes
+
+  service:
+    name: mariadb.service
+    state: started

@@ -1,0 +1,8 @@
+---
+# tasks file for nextcloud-server
+- include: firewall.yml
+- include: repositories.yml
+- include: install.yml
+- include: services-initial.yml
+- include: configuration.yml
+- include: services-final.yml

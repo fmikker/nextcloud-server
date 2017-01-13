@@ -1,0 +1,10 @@
+---
+- name: enabling firewall rules
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: true
+  with_items:
+    - http
+    - https

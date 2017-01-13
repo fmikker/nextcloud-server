@@ -1,0 +1,11 @@
+---
+- name: install the epel 7 repo
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: install the ius centos7 repo
+  yum:
+    name: https://centos7.iuscommunity.org/ius-release.rpm
+    state: present
+

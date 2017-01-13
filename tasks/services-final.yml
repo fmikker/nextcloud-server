@@ -1,0 +1,11 @@
+---
+- name: installing | installing the required software
+  become: yes
+
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  with_items:
+    - httpd.service
+    - mariadb.service

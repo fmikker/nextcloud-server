@@ -1,0 +1,5 @@
+---
+# vars file for gokev.nextcloud
+ncdbname: "NextCloud"
+ncdbuser: "nextcloud"
+ncdbpass: "nextcloud"
