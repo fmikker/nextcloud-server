@@ -1,0 +1,13 @@
+---
+- name: "Remove the database {{ ncdbname }}"
+  mysql_db:
+    name: "{{ ncdbname }}"
+    state: absent
+  ignore_errors: yes
+
+- name: "Remove the mysql user {{ ncdbuser }}"
+  mysql_user:
+    name: "{{ ncdbuser }}"
+    host: localhost
+    state: absent
+  ignore_errors: yes

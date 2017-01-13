@@ -49,7 +49,7 @@ How to run the playbook
 
 ** Run the playbook
 
-ansible-playbook -i hosts.target nextcloud-host.yaml
+ansible-playbook -i hosts.target nextcloud-install.yaml
 
 License
 -------

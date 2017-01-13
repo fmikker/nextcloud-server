@@ -3,3 +3,6 @@
 ncdbname: "NextCloud"
 ncdbuser: "nextcloud"
 ncdbpass: "nextcloud"
+ncwebpath: "/var/www/nextcloud"
+ncsource: "https://download.nextcloud.com/server/releases/nextcloud-11.0.0.zip"
+

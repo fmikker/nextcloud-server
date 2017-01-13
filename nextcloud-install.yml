@@ -2,6 +2,7 @@
 - name: MAIN TASK | Installing and configuring NextCloud
   hosts: nextcloud
   vars_files:
+    - defaults/main.yml
     - vars/main.yml
   remote_user: root
   tasks:

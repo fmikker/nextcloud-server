@@ -1,2 +1,7 @@
 ---
 # defaults file for nextcloud-server
+
+defwebpath: "/var/www/html"
+
+epel7repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+iusrepo: "https://centos7.iuscommunity.org/ius-release.rpm"

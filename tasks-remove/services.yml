@@ -1,0 +1,11 @@
+---
+- name: stop services
+
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  with_items:
+    - httpd.service
+    - mariadb.service
+  ignore_errors: yes

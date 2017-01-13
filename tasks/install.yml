@@ -1,5 +1,5 @@
 ---
-- name: installing | installing the required software
+- name: installing the required software
   become: yes
 
   yum:
@@ -25,19 +25,30 @@
     - php56u-process
     - php56u-xml
 
-- name: check to see if nextcloud path already exists.
+- name: "Checking to see if {{ ncwebpath }} already exists."
   stat:
-    path: /var/www/nextcloud
+    path: "{{ ncwebpath }}"
   register: pnc
 
-- name: do not allow this playbook to overwrite an existing nextcloud instance
+- name: "do not allow this playbook to overwrite an existing nextcloud instance"
   fail:
-    msg: "/var/www/nextcloud already exists.  Cannot complete"
+    msg: "{{ ncwebpath }} already exists.  Cannot complete"
   when: pnc.stat.isdir is defined and pnc.stat.isdir
 
-- name: download and unarchive nextcloud 11.0.0 stable
+- name: "Clear the tmp location"
+  file:
+    path: /tmp/nextcloud
+    state: absent
+
+- name: "download and unarchive nextcloud 11.0.0 stable to /tmp"
   unarchive:
-    src: https://download.nextcloud.com/server/releases/nextcloud-11.0.0.zip
-    dest: /var/www/
+    src: "{{ ncsource }}"
+    dest: /tmp/
     remote_src: True
+
+- name: "Copy files from /tmp to {{ ncwebpath }}"
+  command: "/bin/mv /tmp/nextcloud/ {{ ncwebpath }}"
+  args:
+    creates: "{{ ncwebpath }}"
+
 

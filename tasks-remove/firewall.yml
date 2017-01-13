@@ -1,0 +1,11 @@
+---
+- name: disabling firewall rules
+  firewalld:
+    service: "{{ item }}"
+    state: disabled
+    permanent: true
+    immediate: true
+  with_items:
+    - http
+    - https
+  ignore_errors: yes

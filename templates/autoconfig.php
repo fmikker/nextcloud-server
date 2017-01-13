@@ -1,7 +1,7 @@
 <?php
 
 $AUTOCONFIG = array(
-'directory' => '/var/www/nextcloud/',
+"directory"     => "{{ ncwebpath }}",
 "dbtype"        => "mysql",
 "dbname"        => "{{ ncdbname }}",
 "dbuser"        => "{{ ncdbuser }}",
