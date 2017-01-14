@@ -18,10 +18,6 @@ This role will:
 - Configure MariaDB with default NextCloud DB, u/p nextcloud/nextcloud
 - Create default login u/p admin/nextcloud
 
-Caveats for manual setup steps:
-- To maintain the integrity of NextCloud, no modifications were done to the install php file.  It will still need to install in its own way, using its own salted hash methods.  As a result of this, you'll need to manually change the DB type to MariaDB and enter the credentials in from below.  These default values are set in main/vars.yml and can be changed to whatever SQL values you wish.  By default, they are:
-
-
 Role Variable Defaults (make changes in the file vars/main.yml)
 --------------
 
