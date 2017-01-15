@@ -8,4 +8,5 @@
   with_items:
     - http
     - https
-  ignore_errors: yes
+
+

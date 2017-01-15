@@ -1,8 +1,8 @@
 ---
 # tasks file for nextcloud-server
-- include: services.yml
 - include: firewall.yml
-- include: configuration.yml
-- include: uninstall.yml
+- include: configure-mysql.yml
+- include: remove-software.yml
+- include: remove-ncpackage.yml
 - include: repositories.yml
-
+- include: cleanup-files.yml

@@ -1,0 +1,20 @@
+---
+- name: removing the required software
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - httpd
+    - mariadb
+    - mariadb-server
+    - php56u
+    - php56u-cli
+    - php56u-common
+    - php56u-gd
+    - php56u-imap
+    - php56u-intl
+    - php56u-mbstring
+    - php56u-mcrypt
+    - php56u-mysqlnd
+    - php56u-process
+    - php56u-xml

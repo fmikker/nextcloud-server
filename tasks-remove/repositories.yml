@@ -1,11 +1,11 @@
 ---
-- name: remove the epel 7 repo
+- name: remove the epel repo
   yum:
-    name: "{{ epel7repo }}"
+    name: "epel-release-*"
     state: absent
 
-- name: remove the ius centos7 repo
+- name: remove the ius repo
   yum:
-    name: "{{ iusrepo }}"
+    name: "ius-release-*"
     state: absent
 

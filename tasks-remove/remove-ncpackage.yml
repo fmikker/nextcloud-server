@@ -1,32 +1,4 @@
 ---
-- name: "installing | installing the required software"
-  become: yes
-
-  yum:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - unzip
-    - MySQL-python
-    - mysql-connector-python
-    - policycoreutils-python
-    - httpd
-    - mariadb
-    - mariadb-server
-    - php56u
-    - php56u-cli
-    - php56u-common
-    - php56u-gd
-    - php56u-imap
-    - php56u-intl
-    - php56u-mbstring
-    - php56u-mcrypt
-    - php56u-mysqlnd
-    - php56u-process
-    - php56u-xml
-
-
-
 - name: "check to see if {{ ncwebpath }} path exists."
   stat:
     path: "{{ ncwebpath }}"
@@ -48,3 +20,4 @@
     path: "{{ ncwebpath }}"
     state: absent
   when: pnc.stat.isdir is defined and pnc.stat.isdir
+

@@ -4,11 +4,11 @@
     path: "{{ nctmppath }}"
   register: isnctmppath
 
-- name: "Clear the tmp location if necessary"
+- name: "Clear the tmp location {{ nctmppath }} if necessary"
   file:
     path: "{{ nctmppath }}"
     state: absent
-  when: isnctmppath.stat.exists == "True"
+  when: isnctmppath.stat.exists == True
 
 - name: "Checking to see if {{ ncwebpath }} already exists."
   stat:
@@ -20,11 +20,11 @@
     src: "{{ ncsource }}"
     dest: "{{ ncdlpath }}"
     remote_src: True
-  when: isncwebpath.stat.exists == "False"
+  when: isncwebpath.stat.exists == False
 
 - name: "Copy files from {{ ncdlpath }} to {{ ncwebpath }}"
   command: "/bin/mv {{ ncdlpath }}/nextcloud/ {{ ncwebpath }}"
   args:
     creates: "{{ ncwebpath }}"
-  when: isncwebpath.stat.exists == "False"
+  when: isncwebpath.stat.exists == False
 
