@@ -19,7 +19,7 @@
   register: iscfghttpd
 
 - name: "checking to see if nextcloud is set as the DocumentRoot"
-  shell: 'egrep "^DocumentRoot" /etc/httpd/conf/httpd.conf 2>&1 | egrep "DocumentRoot \"/var/www/nextcloud\"" | wc -l'
+  shell: 'egrep "^DocumentRoot" /etc/httpd/conf/httpd.conf 2>&1 | egrep "DocumentRoot \"{{ ncwebpath }}\"" | wc -l'
   register: iscfghttpdset
   changed_when: iscfghttpdset.stdout == "0"
 
