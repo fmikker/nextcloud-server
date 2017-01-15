@@ -1,0 +1,30 @@
+---
+- name: "Checking to see if {{ nctmppath }} already exists."
+  stat:
+    path: "{{ nctmppath }}"
+  register: isnctmppath
+
+- name: "Clear the tmp location if necessary"
+  file:
+    path: "{{ nctmppath }}"
+    state: absent
+  when: isnctmppath.stat.exists == "True"
+
+- name: "Checking to see if {{ ncwebpath }} already exists."
+  stat:
+    path: "{{ ncwebpath }}"
+  register: isncwebpath
+
+- name: "download and unarchive nextcloud 11.0.0 stable to {{ ncdlpath }}"
+  unarchive:
+    src: "{{ ncsource }}"
+    dest: "{{ ncdlpath }}"
+    remote_src: True
+  when: isncwebpath.stat.exists == "False"
+
+- name: "Copy files from {{ ncdlpath }} to {{ ncwebpath }}"
+  command: "/bin/mv {{ ncdlpath }}/nextcloud/ {{ ncwebpath }}"
+  args:
+    creates: "{{ ncwebpath }}"
+  when: isncwebpath.stat.exists == "False"
+

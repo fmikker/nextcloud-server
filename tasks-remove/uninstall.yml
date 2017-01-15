@@ -26,14 +26,16 @@
     - php56u-xml
 
 
-- name: "Create a unique ID"
-  local_action: command uuidgen
-  register: new_uuid
 
 - name: "check to see if {{ ncwebpath }} path exists."
   stat:
     path: "{{ ncwebpath }}"
   register: pnc
+
+- name: "Create a unique ID if we need to move the old dir"
+  local_action: command uuidgen
+  register: new_uuid
+  when: pnc.stat.isdir is defined and pnc.stat.isdir
 
 - name: "Preserve files from {{ ncwebpath }} to {{ ncwebpath }}.{{ new_uuid.stdout }}"
   command: "/bin/mv \"{{ ncwebpath }}\" \"{{ ncwebpath }}.{{ new_uuid.stdout }}\" "

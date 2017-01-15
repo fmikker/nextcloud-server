@@ -1,10 +1,10 @@
 ---
-- name: install the epel repo
+- name: install the epel repo if we need it
   yum:
     name: "{{ epel7repo }}"
     state: present
 
-- name: install the ius repo
+- name: install the ius repo if we need it
   yum:
     name: "{{ iusrepo }}"
     state: present

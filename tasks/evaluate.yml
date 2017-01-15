@@ -1,0 +1,98 @@
+---
+- name: "Checking to see if epel repo is installed"
+  stat:
+    path: "{{ epel7local }}"
+  register: isrepoepel
+
+- debug:
+    msg: "Is the epel repo installed?  {{ isrepoepel.stat.exists }}"
+  when: isrepoepel.stat.exists == True
+
+- name: "Checking to see if ius repo is installed"
+  stat:
+    path: "{{ iuslocal }}"
+  register: isrepoius
+
+- debug:
+    msg: "Is the ius repo installed?  {{ isrepoius.stat.exists }}"
+  when: isrepoius.stat.exists == True
+
+- name: "Checking to see if {{ nctmppath }} already exists."
+  stat:
+    path: "{{ nctmppath }}"
+  register: isnctmppath
+
+- name: "Checking to see if {{ ncwebpath }} already exists."
+  stat:
+    path: "{{ ncwebpath }}"
+  register: isncwebpath
+
+- set_fact:
+    ncconfigfile: "{{ ncwebpath }}/config/config.php"
+
+- name: "Checking to see if {{ ncconfigfile }} already exists."
+  stat:
+    path: "{{ ncconfigfile }}"
+  register: isnccfg
+
+- name: "Checking to see if httpd.conf exists"
+  stat:
+    path: "/etc/httpd/conf/httpd.conf"
+  register: iscfghttpd
+
+- name: "checking to see if nextcloud is set as the DocumentRoot"
+  shell: 'egrep "^DocumentRoot" /etc/httpd/conf/httpd.conf 2>&1 | egrep "DocumentRoot \"/var/www/nextcloud\"" | wc -l'
+  register: iscfghttpdset
+  changed_when: iscfghttpdset.stdout == "0"
+
+
+
+
+
+## Use these in subsequent plays
+
+- debug:
+    msg: "Does NextCloud web path exist? {{ isncwebpath.stat.exists }}"
+#  when: isncwebpath.stat.exists == True
+
+- debug:
+    msg: "Does NextCloud web path exist? {{ isnccfg.stat.exists }}"
+#  when: isnccfg.stat.exists == True
+
+- debug:
+    msg: "Does the tpm directory exist where we will unzip?  {{ isnctmppath.stat.exists }}"
+#  when: isnctmppath.stat.exists == True
+
+- debug:
+    msg: "Does the httpd.conf file exist?  {{ iscfghttpd.stat.exists }}"
+#  when: iscfghttpd.stat.exists == True
+
+- debug:
+    msg: "Does the httpd.conf have the correct settings?  {{ iscfghttpdset.stdout }}"
+#  when: iscfghttpdset.stdout == 1
+
+- debug:
+    msg: "Is the httpd service already enabled?  {{ issvchttpd.stat.exists }}"
+#  when: issvchttpd.stat.exists == True
+
+- debug:
+    msg: "Is the MariaDB service already enabled?  {{ issvcmaria.stat.exists }}"
+#  when: issvcmaria.stat.exists == True
+
+
+
+
+
+
+
+- name: "Checking to see if httpd is installed prior to us installing it"
+  stat:
+    path: "/usr/lib/systemd/system/httpd.service"
+  register: issvchttpd
+
+- name: "Checking to see if mariadb is installed prior to us installing it"
+  stat:
+    path: "/usr/lib/systemd/system/mariadb.service"
+  register: issvcmaria
+
+

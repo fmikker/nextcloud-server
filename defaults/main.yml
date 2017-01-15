@@ -2,6 +2,11 @@
 # defaults file for nextcloud-server
 
 defwebpath: "/var/www/html"
+nctmppath: "/tmp/nextcloud"
+ncdlpath: "/tmp"
+httpdconf: "/etc/httpd/conf/httpd.conf"
 
 epel7repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+epel7local: "/etc/yum.repos.d/epel.repo"
 iusrepo: "https://centos7.iuscommunity.org/ius-release.rpm"
+iuslocal: "/etc/yum.repos.d/ius.repo"

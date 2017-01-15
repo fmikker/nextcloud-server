@@ -1,0 +1,15 @@
+---
+- name: "Create a new database {{ ncdbname }}"
+  mysql_db:
+    name: "{{ ncdbname }}"
+    state: present
+
+- name: "Create the user {{ ncdbuser }} for {{ ncdbname }}.*:ALL"
+  mysql_user:
+    host: localhost
+    name: "{{ ncdbuser }}"
+    password: "{{ ncdbpass }}"
+    priv: "{{ ncdbname }}.*:ALL"
+    update_password: always
+    state: present
+

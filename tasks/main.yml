@@ -1,8 +1,13 @@
 ---
 # tasks file for nextcloud-server
+#- include: evaluate.yml
+
 - include: firewall.yml
 - include: repositories.yml
-- include: install.yml
+- include: install-software.yml
+- include: install-ncpackage.yml
 - include: services-initial.yml
-- include: configuration.yml
+- include: configure-httpd.yml
+- include: configure-php.yml
+- include: configure-mysql.yml
 - include: services-final.yml

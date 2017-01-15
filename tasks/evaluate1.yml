@@ -1,0 +1,34 @@
+---
+- name: "Checking to see if epel repo is installed"
+  stat:
+    path: "{{ epel7local }}"
+  register: isrepoepel
+
+- name: install the epel repo if we need it
+  yum:
+    name: "{{ epel7repo }}"
+    state: present
+  when: isrepoepel.stat.exists is not defined
+
+- name: "Checking to see if ius repo is installed"
+  stat:
+    path: "{{ iuslocal }}"
+  register: isrepoius
+
+- name: install the ius repo if we need it
+  yum:
+    name: "{{ iusrepo }}"
+    state: present
+  when: isrepoius.stat.exists is not defined
+
+
+
+
+- name: EPEL {{ epel7local }}
+  debug:
+    msg: "{{ isrepoepel.stat.exists }}"
+
+- name: IUS {{ iuslocal }}
+  debug:
+    msg: "IUS {{ isrepoius.stat.exists }}"
+

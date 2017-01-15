@@ -1,7 +1,5 @@
 ---
-- name: installing | installing the required software
-  become: yes
-
+- name: start MariaDB to configure
   service:
     name: mariadb.service
     state: started

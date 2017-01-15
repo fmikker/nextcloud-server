@@ -1,0 +1,32 @@
+---
+- name: "set apache ownership on {{ ncwebpath }}"
+  file:
+    path: "{{ ncwebpath }}"
+    state: directory
+    recurse: yes
+    owner: apache
+    group: apache
+
+### Ansible SELinux module does not appear to work recursively so we use ugly raw
+- name: "Set selinux context recursively httpd_sys_rw_content_t {{ ncwebpath }}"
+  shell: "chcon -R -t httpd_sys_rw_content_t {{ ncwebpath }}"
+  register: selinuxresult
+  changed_when: selinuxresult == "pink elephants"
+
+- name: "Checking to see if httpd.conf exists"
+  stat:
+    path: "{{ httpdconf }}"
+  register: iscfghttpd
+
+- name: "checking to see if nextcloud is set as the DocumentRoot"
+  shell: 'egrep "^DocumentRoot" /etc/httpd/conf/httpd.conf 2>&1 | egrep "DocumentRoot \"/var/www/nextcloud\"" | wc -l'
+  register: iscfghttpdset
+  changed_when: iscfghttpdset.stdout == "0"
+
+- name: "Change httpd.conf to make the web root {{ ncwebpath }}"
+  lineinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: '^DocumentRoot '
+    line: 'DocumentRoot "{{ ncwebpath }}"'
+  when: iscfghttpdset.stdout == "0"
+

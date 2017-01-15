@@ -1,0 +1,38 @@
+---
+- name: "set PHP post max size"
+  lineinfile:
+    dest: /etc/php.ini
+    state: present
+    regexp: '^post_max_size\s'
+    line: 'post_max_size = 50M'
+
+- name: "set PHP upload max size"
+  lineinfile:
+    dest: /etc/php.ini
+    state: present
+    regexp: '^upload_max_size\s'
+    line: 'upload_max_size = 50M'
+
+- set_fact:
+    ncconfigfile: "{{ ncwebpath }}/config/config.php"
+
+- name: "Checking to see if {{ ncconfigfile }} already exists."
+  stat:
+    path: "{{ ncconfigfile }}"
+  register: isnccfg
+
+- name: "Does {{ ncconfigfile }} web path exist"
+  debug:
+    msg: "{{ isnccfg.stat.exists }}"
+
+
+- name: "copy autoconfig template into {{ ncwebpath }}/config/autoconfig.php"
+  template:
+    src: templates/autoconfig.php
+    dest: "{{ ncwebpath }}/config/autoconfig.php"
+    owner: apache
+    group: apache
+    mode: 0644
+  when: isnccfg.stat.exists == False
+
+
