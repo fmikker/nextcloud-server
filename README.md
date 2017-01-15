@@ -42,14 +42,14 @@ IP FOR NEXTCLOUD SERVER
 How to run the playbook
 ------------------------
 
-**  Edit the variable file on vars/main.yml to set it to your environment. 
+** Edit the variable file on vars/main.yml to set it to your environment. 
 
 ** Run the playbook
 
-A clean remove has been added.
+** Make sure to include the safety word in your command.  I added this to put one extra annoying step to make sure no one breaks something without first reading this or confirming what this playbook actually does.
 
-ansible-playbook -i hosts.target nextcloud-install.yml to install
-ansible-playbook -i hosts.target nextcloud-remove.yml to cleanly remove
+* ansible-playbook -i hosts.target --extra-vars "safety_word=nextcloud-install" nextcloud-install.yml
+* ansible-playbook -i hosts.target --extra-vars "safety_word=nextcloud-remove" nextcloud-remove.yml
 
 License
 -------
