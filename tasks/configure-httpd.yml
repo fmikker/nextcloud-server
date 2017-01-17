@@ -12,6 +12,7 @@
   shell: "chcon -R -t httpd_sys_rw_content_t {{ ncwebpath }}"
   register: selinuxresult
   changed_when: selinuxresult == "pink elephants"
+  ignore_errors: yes
 
 - name: "Checking to see if httpd.conf exists"
   stat:
