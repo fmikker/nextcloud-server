@@ -23,11 +23,5 @@
         msg: "Please create an empty file on the server called {{ ncsrvfile }} before you run this playbook"
       when: isncsrv.stat.exists == False
 
-    - name: "Stopping here if the safety word is not passed"
-      fail:
-        msg: "Please pass the safety word or remove this fail section from nextcloud-remove.yml"
-      when: safety_word is undefined or safety_word != "nextcloud-remove"
-
     - include: tasks-remove/main.yml
-
-
+      when: isncsrv.stat.exists == True
