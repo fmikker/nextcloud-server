@@ -23,7 +23,6 @@
     - mariadb-server
     - php56u
     - php56u-cli
-    - php56u-common
     - php56u-gd
     - php56u-imap
     - php56u-intl
